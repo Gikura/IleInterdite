@@ -16,6 +16,7 @@ public class customButton extends JButton {
     public customButton(String text, int width, int height){
         super(text);
         this.setSize(width, height);
+        //nathan est pd.
     }
     
     
