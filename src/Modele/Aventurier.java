@@ -17,7 +17,7 @@ public abstract class Aventurier {
     private Couleur couleur;
     private int actions;
     private ArrayList<CarteTresor> cartes;
-    private Tuile tuile;
+    protected Tuile tuile;
     
     public Aventurier(String nom, Couleur couleur){
         this.nom = nom;
