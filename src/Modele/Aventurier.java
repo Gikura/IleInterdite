@@ -39,7 +39,7 @@ public abstract class Aventurier {
         Message message;
         boolean valide = false;
         
-        if(cible.isSombree()){
+        if(cible.isSombree() != true){
             if((xCible == xAventurier && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (yCible == yAventurier && (xCible == xAventurier + 1 || xCible == xAventurier -1))){
                 tuile.enleverAventurier(this);
                 cible.ajouterAventurier(this);

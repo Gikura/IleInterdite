@@ -5,10 +5,20 @@
  */
 package Modele;
 
+import Observateur.Message;
+
 /**
  *
  * @author dussaulp
  */
-public class Ingenieur {
+public class Ingenieur extends Aventurier {
     
+    public Ingenieur(String nom, Couleur couleur) {
+        super(nom, couleur);
+    }
+
+    @Override
+    public Message deplacer(Tuile cible) {
+        return super.deplacer(cible); //To change body of generated methods, choose Tools | Templates.
+    }    
 }

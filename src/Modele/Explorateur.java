@@ -18,7 +18,8 @@ public class Explorateur extends Aventurier {
         super(nom, couleur);
     }
     
-    public Message déplacer(Tuile cible) {
+    @Override
+    public Message deplacer(Tuile cible) {
         int xAventurier = getTuile().getCoords().getX();
         int yAventurier = getTuile().getCoords().getY();
         int xCible = cible.getCoords().getX();
