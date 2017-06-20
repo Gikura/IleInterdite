@@ -41,6 +41,41 @@ public class Explorateur extends Aventurier {
         }
         return message;
     }
+    
+    @Override
+        public Message assecher(Tuile cible){
+            int xAventurier = getTuile().getCoords().getX();
+            int yAventurier = getTuile().getCoords().getY();
+            int xCible = cible.getCoords().getX();
+            int yCible = cible.getCoords().getY();
+            Message message;
+            boolean valide = false; 
+        
+            if (cible.isSombree() == true ){
+             message = new Message(TypeMessage.ASSECHEMENT_SOMBREE);
+
+             }
+        
+             else {
+                if (cible.isInondee() == true){
+                    if(((xCible == xAventurier-1 || xCible == xAventurier+1) && (yCible == yAventurier-1 || yCible == yAventurier+1)) || (xCible == xAventurier && yCible == yAventurier)){
+                        cible.setInondee(false);
+                        message = new Message(TypeMessage.ASSECHEMENT_OK);
+                    }
+                    else{
+                        message = new Message(TypeMessage.ASSECHEMENT_TUILE_NON_ATTEIGNABLE);
+                    }
+                }
+                else{
+                    message = new Message(TypeMessage.ASSECHEE);
+           
+                }
+            }
+        
+            return message;
+                           
+            
+    }
 
     
     
