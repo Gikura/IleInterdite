@@ -5,7 +5,8 @@
  */
 package Modele;
 
-import Observateur.*;
+import Observateur.Message;
+import Observateur.TypeMessage;
 
 /**
  *
@@ -26,7 +27,7 @@ public class Explorateur extends Aventurier {
         boolean valide = false;
         
         if(cible.isSombree()){
-            if((xCible == xAventurier && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (yCible == yAventurier && (xCible == xAventurier + 1 || xCible == xAventurier -1)) || (xCible == xAventurier - 1 && (yCible == yAventurier - 1 || yCible == yAventurier + 1)) || (xCible == xAventurier + 1 && (yCible == yAventurier - 1 || yCible == yAventurier + 1))){
+            if(((xCible == xAventurier && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (yCible == yAventurier && (xCible == xAventurier + 1 || xCible == xAventurier -1)) || (xCible == xAventurier - 1 && (yCible == yAventurier - 1 || yCible == yAventurier + 1)) || (xCible == xAventurier + 1 && (yCible == yAventurier - 1 || yCible == yAventurier + 1))) && (xCible != xAventurier && yCible != yAventurier)                              ){
 
                 tuile.enleverAventurier(this);
                 cible.ajouterAventurier(this);
