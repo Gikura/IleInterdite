@@ -5,10 +5,22 @@
  */
 package Modele;
 
+import Observateur.Message;
+
 /**
  *
  * @author dussaulp
  */
-public class Messager {
+public class Messager extends Aventurier{
+    
+    public Messager(String nom, Couleur couleur) {
+        super(nom, couleur);
+    }
+    
+    @Override
+    public Message deplacer(Tuile cible) {
+       return super.deplacer(cible);
+    }
+    
     
 }

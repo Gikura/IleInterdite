@@ -18,7 +18,8 @@ public class Pilote extends Aventurier {
         super(nom, couleur);
     }
     
-    public Message déplacer(Tuile cible) {
+    @Override
+    public Message deplacer(Tuile cible) {
         int xAventurier = getTuile().getCoords().getX();
         int yAventurier = getTuile().getCoords().getY();
         int xCible = cible.getCoords().getX();
@@ -26,12 +27,16 @@ public class Pilote extends Aventurier {
         Message message;
         boolean valide = false;
         
-        if ((cible.isSombree() != false) && (xCible != xAventurier && yCible != yAventurier)) {      
-            
-            tuile.enleverAventurier(this);
-            cible.ajouterAventurier(this);
-            this.setTuile(cible);
-            message = new Message(TypeMessage.DEPLACEMENT_OK);
+        if (cible.isSombree() != false) {
+            if (xCible != xAventurier && yCible != yAventurier) {      
+                tuile.enleverAventurier(this);
+                cible.ajouterAventurier(this);
+                this.setTuile(cible);
+                message = new Message(TypeMessage.DEPLACEMENT_OK);
+            }else{
+                message = new Message(TypeMessage.DEPLACEMENT_MEME_TUILE);
+            }
+                
         }else{
             message = new Message(TypeMessage.DEPLACEMENT_SOMBREE);
         }

@@ -18,36 +18,36 @@ public class Navigateur extends Aventurier {
         super(nom, couleur);
     }
     
-    public Message déplacer(Tuile cible) {
-        int xAventurier = getTuile().getCoords().getX();
-        int yAventurier = getTuile().getCoords().getY();
+    @Override
+    public Message deplacer(Tuile cible) {
+        return super.deplacer(cible);
+    }
+    
+    public Message déplacerJoueur (Aventurier Aventurier, Tuile cible) {
+        int xAventurier = Aventurier.getTuile().getCoords().getX();
+        int yAventurier = Aventurier.getTuile().getCoords().getY();
         int xCible = cible.getCoords().getX();
         int yCible = cible.getCoords().getY();
-        Message message;
+        Message message = null;
         boolean valide = false;
         
-        if(cible.isSombree()){
-            if(((xCible == xAventurier && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (yCible == yAventurier && (xCible == xAventurier + 1 || xCible == xAventurier -1)) || (xCible == xAventurier - 1 && (yCible == yAventurier - 1 || yCible == yAventurier + 1)) || (xCible == xAventurier + 1 && (yCible == yAventurier - 1 || yCible == yAventurier + 1))) && (xCible != xAventurier && yCible != yAventurier)                              ){
-
-                tuile.enleverAventurier(this);
-                cible.ajouterAventurier(this);
-                this.setTuile(cible);
-                message = new Message(TypeMessage.DEPLACEMENT_OK);
+        if(cible.isSombree() != true){
+            if(xCible != xAventurier && yCible != yAventurier) {
+                if(((xCible == xAventurier && (yCible == yAventurier +1 || yCible == yAventurier +2 || yCible == yAventurier -1 || yCible == yAventurier -2)) || (yCible == yAventurier && (xCible == yAventurier +1 || xCible == yAventurier +2 || xCible == yAventurier -1 || xCible == yAventurier -2)) || (xCible == xAventurier +1 && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (xCible == xAventurier -1 && (yCible == yAventurier +1 || yCible == yAventurier -1))) || (xCible != xAventurier && yCible != yAventurier)){
+                    tuile.enleverAventurier(Aventurier);
+                    cible.ajouterAventurier(Aventurier);
+                    this.setTuile(cible);
+                    
+                }else{
+                    message = new Message(TypeMessage.DEPLACEMENT_TUILE_NON_ATTEIGNABLE);
+                }
             }else{
-                message = new Message(TypeMessage.DEPLACEMENT_TUILE_NON_ATTEIGNABLE);
+                message = new Message(TypeMessage.DEPLACEMENT_MEME_TUILE);
             }
         }else{
             message = new Message(TypeMessage.DEPLACEMENT_SOMBREE);
         }
         return message;
-    }
-    
-    public Message déplacerJoueur (Aventurier joueur, Tuile cible) {
-        
-        
-        
-        
-        
     }
     
     
