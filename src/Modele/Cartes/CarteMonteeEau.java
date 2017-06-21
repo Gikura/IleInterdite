@@ -9,12 +9,10 @@ package Modele.Cartes;
  *
  * @author lebouchn
  */
-public class CarteCalice  extends CarteTresor{
+public class CarteMonteeEau extends CarteTresor{
     
-    public CarteCalice(String nom) {
+    public CarteMonteeEau(String nom) {
         super(nom);
     }
-
-
     
 }
