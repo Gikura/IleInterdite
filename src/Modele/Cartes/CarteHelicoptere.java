@@ -5,11 +5,15 @@
  */
 package Modele.Cartes;
 
+import Modele.Tuile;
+
 /**
  *
  * @author lebouchn
  */
 public class CarteHelicoptere  extends CarteTresor{
+    
+    private Tuile tuile;
     
     public CarteHelicoptere(String nom) {
         super(nom);
