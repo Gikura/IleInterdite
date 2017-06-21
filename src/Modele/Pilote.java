@@ -27,7 +27,7 @@ public class Pilote extends Aventurier {
         Message message;
         boolean valide = false;
         
-        if (cible.isSombree() != false) {
+        if (!cible.isSombree()) {
             if (xCible != xAventurier && yCible != yAventurier) {      
                 tuile.enleverAventurier(this);
                 cible.ajouterAventurier(this);

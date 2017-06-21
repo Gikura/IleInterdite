@@ -5,6 +5,8 @@
  */
 package Modele;
 
+import Observateur.*;
+
 /**
  *
  * @author dussaulp
@@ -16,10 +18,16 @@ public class Messager extends Aventurier {
     }
     
     @Override
-    public void donnerCarte(CarteTresor carte,Aventurier aventurier){
+    public Message donnerCarte(CarteTresor carte,Aventurier aventurier){
+        Message message;
         if (this.getCartes().contains(carte)){
             this.getCartes().remove(carte);
             aventurier.ajouterCarte(carte);
+            message = new Message(TypeMessage.DONNER_CARTE); 
         }
+        else{
+            message = new Message(TypeMessage.DONNER_CARTE_IMPOSSIBLE);
+        }
+        return message;
     }
 }
