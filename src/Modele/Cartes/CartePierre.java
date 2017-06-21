@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modele;
+package Modele.Cartes;
 
 /**
  *
  * @author lebouchn
  */
-public class CarteHelicoptere  extends CarteTresor{
+public class CartePierre  extends CarteTresor{
     
-    public CarteHelicoptere(String nom) {
+    public CartePierre(String nom) {
         super(nom);
     }
     

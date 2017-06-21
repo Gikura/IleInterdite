@@ -5,6 +5,7 @@
  */
 package Modele;
 
+import Modele.Aventurier.Aventurier;
 import java.util.ArrayList;
 
 /**

@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modele;
+package Modele.Aventurier;
 
+import Modele.Couleur;
+import Modele.Tuile;
 import Observateur.Message;
 import Observateur.TypeMessage;
 

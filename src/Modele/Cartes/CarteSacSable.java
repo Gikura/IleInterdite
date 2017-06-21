@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modele;
+package Modele.Cartes;
 
 /**
  *
  * @author lebouchn
  */
-public class CartePierre  extends CarteTresor{
+public class CarteSacSable  extends CarteTresor{
     
-    public CartePierre(String nom) {
+    public CarteSacSable(String nom) {
         super(nom);
     }
     

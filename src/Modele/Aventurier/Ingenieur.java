@@ -3,45 +3,46 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modele;
+package Modele.Aventurier;
 
+import Modele.Couleur;
+import Modele.Tuile;
 import Observateur.Message;
 import Observateur.TypeMessage;
-import java.util.ArrayList;
 
 /**
  *
  * @author dussaulp
  */
-public class Plongeur extends Aventurier {
+public class Ingenieur extends Aventurier {
     
-    public Plongeur(String nom, Couleur couleur) {
-        super(nom, couleur);
+    public Ingenieur(String nom, Couleur couleur) {
+    super(nom, couleur);
     }
     
     @Override
-    public Message deplacer(Tuile cible){
+    public Message assecher(Tuile cible){
         int xAventurier = getTuile().getCoords().getX();
         int yAventurier = getTuile().getCoords().getY();
         int xCible = cible.getCoords().getX();
         int yCible = cible.getCoords().getY();
         Message message;
-        boolean valide = false;
-        ArrayList<Tuile> tuilesPassees = new ArrayList<>();
-        ArrayList<Tuile> tuilesPassables = new ArrayList<>();
-            if(cible.isSombree()){
+        
+        if (cible.isSombree() == true ){
+            message = new Message(TypeMessage.ASSECHEMENT_SOMBREE);
+        }else{
+            if (cible.isInondee() == true){
                 if((xCible == xAventurier && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (yCible == yAventurier && (xCible == xAventurier + 1 || xCible == xAventurier -1))){
-                    tuile.enleverAventurier(this);
-                    cible.ajouterAventurier(this);
-                    this.setTuile(cible);
-                    message = new Message(TypeMessage.DEPLACEMENT_OK);
+                    cible.assecher();
+                    actions = actions - (int) 0.5;
+                    message = new Message(TypeMessage.ASSECHEMENT_OK);
                 }else{
-                    message = new Message(TypeMessage.DEPLACEMENT_TUILE_NON_ATTEIGNABLE);
+                    message = new Message(TypeMessage.ASSECHEMENT_TUILE_NON_ATTEIGNABLE);
                 }
             }else{
-                message = new Message(TypeMessage.DEPLACEMENT_SOMBREE);
+                message = new Message(TypeMessage.ASSECHEE);
             }
-            return message;
+        }
+        return message;        
     }
-    
 }
