@@ -54,4 +54,23 @@ public class Utils {
         Collections.shuffle(aventuriers);
         return aventuriers;
     } 
+    
+    public static enum Tresor{
+        
+        Calice("Calice de l'onde"),
+        Pierre("Pierre Sacree"),
+        Cristal("Cristal Ardent"),
+        Statue("Statue ");
+            
+           private String libelle;
+           
+           Tresor(String libelle){
+               this.libelle=libelle;
+           }
+           
+           @Override
+            public String toString() {
+            return this.libelle;
+        }
+    }
 }
