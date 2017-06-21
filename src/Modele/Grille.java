@@ -5,7 +5,11 @@
  */
 package Modele;
 
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import Utils.Utils.*;
+import Modele.Aventurier.*;
 
 /**
  *
@@ -13,10 +17,37 @@ import java.util.ArrayList;
  */
 public class Grille {
     
-    private ArrayList<Tuile> tuiles;
+    private Tuile[][] plateauJeu;
     
     public Grille() {
-        tuiles = new ArrayList<>();
+        this.plateauJeu = new Tuile[6][6];
     }
+    
+    public void installer_grille (ArrayList<Tuile> pileTuile, HashMap<Pion, Aventurier> Joueurs) {
+        int numTuile = 0;
+        Tuile tuile;
+        Aventurier joueur;
+        
+        for (int x = 1; x <= 6; x++) {
+            for (int y = 1; y <= 6; y++) {
+                if (()) {
+                    
+                }
+            }
+        }
+        
+        
+    }
+    
+    
+    
+    
+    private Tuile[][] getmap() {
+        return this.plateauJeu;
+    }
+    
+    
+    
+    
     
 }

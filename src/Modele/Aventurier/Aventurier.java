@@ -6,8 +6,7 @@
 package Modele.Aventurier;
 
 import Modele.Cartes.CarteTresor;
-import Modele.Couleur;
-import Modele.Tuile;
+import Modele.*;
 import java.util.ArrayList;
 import Observateur.*;
 

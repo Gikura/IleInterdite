@@ -6,6 +6,7 @@
 package Modele;
 
 import Modele.Aventurier.Aventurier;
+import Utils.Utils.*;
 import java.util.ArrayList;
 
 /**
@@ -15,14 +16,27 @@ import java.util.ArrayList;
 public class Tuile {
     private String nom;
     private Coordonnees coords;
+    private Pion pion;
     private ArrayList<Aventurier> aventuriers;
     private boolean inondee;
     private boolean sombree;
     
-    public Tuile(String nom, Coordonnees coords){
-        this.nom = nom;
-        this.coords = coords;
+    public Tuile(String nom){
+        this.setNom(nom);
         this.inondee = this.sombree = false;
+    }
+    
+    public Tuile(String nom, Coordonnees coords){
+        this.setNom(nom);
+        this.setCoords(coords);
+        this.inondee = this.sombree = false;
+    }
+    
+    public Tuile(String nom, Coordonnees coords, Pion pion) {
+        this.setNom(nom);
+        this.setCoords(coords);
+        this.inondee = this.sombree = false;
+        this.setPion(pion);
     }
 
     
@@ -106,6 +120,20 @@ public class Tuile {
      */
     public void setSombree(boolean sombree) {
         this.sombree = sombree;
+    }
+
+    /**
+     * @return the pion
+     */
+    public Pion getPion() {
+        return pion;
+    }
+
+    /**
+     * @param pion the pion to set
+     */
+    public void setPion(Pion pion) {
+        this.pion = pion;
     }
     
     
