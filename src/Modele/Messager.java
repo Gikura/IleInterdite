@@ -5,22 +5,21 @@
  */
 package Modele;
 
-import Observateur.Message;
-
 /**
  *
  * @author dussaulp
  */
-public class Messager extends Aventurier{
+public class Messager extends Aventurier {
     
     public Messager(String nom, Couleur couleur) {
         super(nom, couleur);
     }
     
     @Override
-    public Message deplacer(Tuile cible) {
-       return super.deplacer(cible);
+    public void donnerCarte(CarteTresor carte,Aventurier aventurier){
+        if (this.getCartes().contains(carte)){
+            this.getCartes().remove(carte);
+            aventurier.ajouterCarte(carte);
+        }
     }
-    
-    
 }
