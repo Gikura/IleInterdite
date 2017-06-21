@@ -20,6 +20,12 @@ public class Ingenieur extends Aventurier {
     
     
     @Override
+        public Message deplacer(Tuile cible) {
+            return super.deplacer(cible); //To change body of generated methods, choose Tools | Templates.
+        } 
+    
+    
+    @Override
         public Message assecher(Tuile cible){
             
             int xAventurier = getTuile().getCoords().getX();
@@ -66,11 +72,6 @@ public class Ingenieur extends Aventurier {
         return message;        
         
    }
-        super(nom, couleur);
-    }
 
-    @Override
-    public Message deplacer(Tuile cible) {
-        return super.deplacer(cible); //To change body of generated methods, choose Tools | Templates.
-    }    
+   
 }

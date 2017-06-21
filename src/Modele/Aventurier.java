@@ -31,6 +31,10 @@ public abstract class Aventurier {
         cartes.add(carte);
     }
     
+    public void enleverCarte(CarteTresor carte){
+        cartes.remove(carte);
+    }
+    
     public Message deplacer(Tuile cible){
         int xAventurier = getTuile().getCoords().getX();
         int yAventurier = getTuile().getCoords().getY();
@@ -60,7 +64,6 @@ public abstract class Aventurier {
         int xCible = cible.getCoords().getX();
         int yCible = cible.getCoords().getY();
         Message message;
-        boolean valide = false;   
         
         if (cible.isSombree() == true ){
             message = new Message(TypeMessage.ASSECHEMENT_SOMBREE);
@@ -85,6 +88,26 @@ public abstract class Aventurier {
         
         return message;
                 
+    }
+    
+    public Message donnerCarte (CarteTresor carte, Aventurier aventurier){
+        int xAventurier1 = aventurier.getTuile().getCoords().getX();
+        int yAventurier1 = aventurier.getTuile().getCoords().getY();
+        int xAventurier2 = aventurier.getTuile().getCoords().getX();
+        int yAventurier2 = aventurier.getTuile().getCoords().getY();
+        Message message;
+        
+        if (xAventurier1 == xAventurier2 && yAventurier1 == yAventurier2){
+            this.enleverCarte(carte);
+            aventurier.ajouterCarte(carte);
+            message = new Message(TypeMessage.DONNER_CARTE);
+        }
+        else{
+            message = new Message(TypeMessage.DONNER_CARTE_IMPOSSIBLE);
+        }
+        
+        return message;
+        
     }
     
     
