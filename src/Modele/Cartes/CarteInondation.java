@@ -5,6 +5,7 @@
  */
 package Modele.Cartes;
 
+import Modele.Etat_Tuile;
 import Modele.Tuile;
 
 /**
@@ -21,11 +22,11 @@ public class CarteInondation {
     
 
     public void inondation(){
-        if (!this.getTuile().isInondee()){
-        this.getTuile().setInondee(true);
+        if (this.getTuile().getEtatTuile() == Etat_Tuile.ASSECHEE){
+        this.getTuile().setEtatTuile(Etat_Tuile.INONDEE);
         }
         else {
-            this.getTuile().setSombree(true);
+            this.getTuile().setEtatTuile(Etat_Tuile.COULEE);
         }
     }
 

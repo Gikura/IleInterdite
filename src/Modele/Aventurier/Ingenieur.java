@@ -6,6 +6,7 @@
 package Modele.Aventurier;
 
 import Modele.Couleur;
+import Modele.Etat_Tuile;
 import Modele.Tuile;
 import Observateur.Message;
 import Observateur.TypeMessage;
@@ -28,10 +29,10 @@ public class Ingenieur extends Aventurier {
         int yCible = cible.getCoords().getY();
         Message message;
         
-        if (cible.isSombree() == true ){
+        if(cible.getEtatTuile() != Etat_Tuile.COULEE){
             message = new Message(TypeMessage.ASSECHEMENT_SOMBREE);
         }else{
-            if (cible.isInondee() == true){
+            if(cible.getEtatTuile() == Etat_Tuile.INONDEE){
                 if((xCible == xAventurier && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (yCible == yAventurier && (xCible == xAventurier + 1 || xCible == xAventurier -1))){
                     cible.assecher();
                     actions = actions - (int) 0.5;

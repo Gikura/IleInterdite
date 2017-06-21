@@ -6,6 +6,7 @@
 package Modele.Aventurier;
 
 import Modele.Couleur;
+import Modele.Etat_Tuile;
 import Modele.Tuile;
 import Observateur.Message;
 import Observateur.TypeMessage;
@@ -31,7 +32,7 @@ public class Plongeur extends Aventurier {
         boolean valide = false;
         ArrayList<Tuile> tuilesPassees = new ArrayList<>();
         ArrayList<Tuile> tuilesPassables = new ArrayList<>();
-            if(cible.isSombree()){
+            if (cible.getEtatTuile() != Etat_Tuile.COULEE) {
                 if((xCible == xAventurier && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (yCible == yAventurier && (xCible == xAventurier + 1 || xCible == xAventurier -1))){
                     tuile.enleverAventurier(this);
                     cible.ajouterAventurier(this);

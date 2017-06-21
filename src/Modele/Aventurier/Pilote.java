@@ -6,6 +6,7 @@
 package Modele.Aventurier;
 
 import Modele.Couleur;
+import Modele.Etat_Tuile;
 import Modele.Tuile;
 import Observateur.Message;
 import Observateur.TypeMessage;
@@ -29,7 +30,7 @@ public class Pilote extends Aventurier {
         Message message;
         boolean valide = false;
         
-        if (!cible.isSombree()) {
+        if (cible.getEtatTuile() != Etat_Tuile.COULEE) {
             if (xCible != xAventurier && yCible != yAventurier) {      
                 tuile.enleverAventurier(this);
                 cible.ajouterAventurier(this);

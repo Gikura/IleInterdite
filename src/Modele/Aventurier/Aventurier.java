@@ -37,7 +37,7 @@ public abstract class Aventurier {
         Message message;
         boolean valide = false;
         
-        if(cible.isSombree() != true){
+        if(cible.getEtatTuile() != Etat_Tuile.COULEE){
             if((xCible == xAventurier && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (yCible == yAventurier && (xCible == xAventurier + 1 || xCible == xAventurier -1))){
                 tuile.enleverAventurier(this);
                 cible.ajouterAventurier(this);
@@ -60,10 +60,10 @@ public abstract class Aventurier {
         int yCible = cible.getCoords().getY();
         Message message;
         
-        if (cible.isSombree() == true ){
+        if (cible.getEtatTuile() == Etat_Tuile.COULEE){
             message = new Message(TypeMessage.ASSECHEMENT_SOMBREE);
         }else{
-            if (cible.isInondee() == true){
+            if (cible.getEtatTuile() == Etat_Tuile.INONDEE){
                 if((xCible == xAventurier && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (yCible == yAventurier && (xCible == xAventurier + 1 || xCible == xAventurier -1))){
                     cible.assecher();
                     actions = actions -1;
@@ -102,11 +102,9 @@ public abstract class Aventurier {
         return message;  
     }
         
-    public ArrayList<Tuile> getTuilesAccessibles(Grille grille) {
-        return 
-    }
-    
-    
+//    public ArrayList<Tuile> getTuilesAccessibles(Grille grille) {
+//        return  
+//    }
     
     public void ajouterCarte(CarteTresor carte){
         cartes.add(carte);

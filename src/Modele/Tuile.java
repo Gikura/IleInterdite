@@ -5,7 +5,9 @@
  */
 package Modele;
 
+import Modele.Etat_Tuile.*;
 import Modele.Aventurier.Aventurier;
+import Modele.Cartes.*;
 import Utils.Utils.*;
 import java.util.ArrayList;
 
@@ -14,28 +16,27 @@ import java.util.ArrayList;
  * @author Romain
  */
 public class Tuile {
-    private String nom;
+    private CarteTuile carteTuile;
     private Coordonnees coords;
     private Pion pion;
     private ArrayList<Aventurier> aventuriers;
-    private boolean inondee;
-    private boolean sombree;
+    private Etat_Tuile etatTuile;
     
-    public Tuile(String nom){
-        this.setNom(nom);
-        this.inondee = this.sombree = false;
+    public Tuile(CarteTuile carteTuile){
+        this.setCarteTuile(carteTuile);
+        this.etatTuile = Etat_Tuile.ASSECHEE;
     }
     
-    public Tuile(String nom, Coordonnees coords){
-        this.setNom(nom);
+    public Tuile(CarteTuile carteTuile, Coordonnees coords){
+        this.setCarteTuile(carteTuile);
         this.setCoords(coords);
-        this.inondee = this.sombree = false;
+        this.etatTuile = Etat_Tuile.ASSECHEE;
     }
     
-    public Tuile(String nom, Coordonnees coords, Pion pion) {
-        this.setNom(nom);
+    public Tuile(CarteTuile carteTuile, Coordonnees coords, Pion pion) {
+        this.setCarteTuile(carteTuile);
         this.setCoords(coords);
-        this.inondee = this.sombree = false;
+        this.etatTuile = Etat_Tuile.ASSECHEE;
         this.setPion(pion);
     }
 
@@ -49,21 +50,7 @@ public class Tuile {
     }
     
     public void assecher() {
-        this.inondee = false;
-    }
-    
-    /**
-     * @return the nom
-     */
-    public String getNom() {
-        return nom;
-    }
-
-    /**
-     * @param nom the nom to set
-     */
-    public void setNom(String nom) {
-        this.nom = nom;
+        this.setEtatTuile(Etat_Tuile.ASSECHEE);
     }
 
     /**
@@ -95,34 +82,6 @@ public class Tuile {
     }
 
     /**
-     * @return the inondee
-     */
-    public boolean isInondee() {
-        return inondee;
-    }
-
-    /**
-     * @param inondee the inondee to set
-     */
-    public void setInondee(boolean inondee) {
-        this.inondee = inondee;
-    }
-
-    /**
-     * @return the sombree
-     */
-    public boolean isSombree() {
-        return sombree;
-    }
-
-    /**
-     * @param sombree the sombree to set
-     */
-    public void setSombree(boolean sombree) {
-        this.sombree = sombree;
-    }
-
-    /**
      * @return the pion
      */
     public Pion getPion() {
@@ -134,6 +93,34 @@ public class Tuile {
      */
     public void setPion(Pion pion) {
         this.pion = pion;
+    }
+
+    /**
+     * @return the etatTuile
+     */
+    public Etat_Tuile getEtatTuile() {
+        return etatTuile;
+    }
+
+    /**
+     * @param etatTuile the etatTuile to set
+     */
+    public void setEtatTuile(Etat_Tuile etatTuile) {
+        this.etatTuile = etatTuile;
+    }
+
+    /**
+     * @return the carteTuile
+     */
+    public CarteTuile getCarteTuile() {
+        return carteTuile;
+    }
+
+    /**
+     * @param carteTuile the carteTuile to set
+     */
+    public void setCarteTuile(CarteTuile carteTuile) {
+        this.carteTuile = carteTuile;
     }
     
     

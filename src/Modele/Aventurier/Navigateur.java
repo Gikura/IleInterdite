@@ -6,6 +6,7 @@
 package Modele.Aventurier;
 
 import Modele.Couleur;
+import Modele.Etat_Tuile;
 import Modele.Tuile;
 import Observateur.Message;
 import Observateur.TypeMessage;
@@ -28,7 +29,7 @@ public class Navigateur extends Aventurier {
         Message message = null;
         boolean valide = false;
         
-        if(cible.isSombree() != true){
+        if(cible.getEtatTuile() != Etat_Tuile.COULEE){
             if(xCible != xAventurier && yCible != yAventurier) {
                 if(((xCible == xAventurier && (yCible == yAventurier +1 || yCible == yAventurier +2 || yCible == yAventurier -1 || yCible == yAventurier -2)) || (yCible == yAventurier && (xCible == yAventurier +1 || xCible == yAventurier +2 || xCible == yAventurier -1 || xCible == yAventurier -2)) || (xCible == xAventurier +1 && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (xCible == xAventurier -1 && (yCible == yAventurier +1 || yCible == yAventurier -1))) || (xCible != xAventurier && yCible != yAventurier)){
                     tuile.enleverAventurier(Aventurier);

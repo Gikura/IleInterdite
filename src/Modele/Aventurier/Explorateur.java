@@ -6,6 +6,7 @@
 package Modele.Aventurier;
 
 import Modele.Couleur;
+import Modele.Etat_Tuile;
 import Modele.Tuile;
 import Observateur.Message;
 import Observateur.TypeMessage;
@@ -29,7 +30,7 @@ public class Explorateur extends Aventurier {
         Message message;
         boolean valide = false;
         
-        if(cible.isSombree()){
+        if(cible.getEtatTuile() != Etat_Tuile.COULEE){
             if(((xCible == xAventurier && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (yCible == yAventurier && (xCible == xAventurier + 1 || xCible == xAventurier -1)) || (xCible == xAventurier - 1 && (yCible == yAventurier - 1 || yCible == yAventurier + 1)) || (xCible == xAventurier + 1 && (yCible == yAventurier - 1 || yCible == yAventurier + 1))) && (xCible != xAventurier && yCible != yAventurier)                              ){
 
                 tuile.enleverAventurier(this);
@@ -55,10 +56,10 @@ public class Explorateur extends Aventurier {
         Message message;
         boolean valide = false; 
 
-        if (cible.isSombree() == true ){
+        if(cible.getEtatTuile() == Etat_Tuile.COULEE){
             message = new Message(TypeMessage.ASSECHEMENT_SOMBREE);
         }else{
-            if (cible.isInondee() == true){
+            if(cible.getEtatTuile() != Etat_Tuile.INONDEE){
                 if(((xCible == xAventurier-1 || xCible == xAventurier+1) && (yCible == yAventurier-1 || yCible == yAventurier+1)) || (xCible == xAventurier && yCible == yAventurier)){
                     cible.assecher();
                     actions = actions -1;

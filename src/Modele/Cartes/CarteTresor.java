@@ -9,11 +9,11 @@ package Modele.Cartes;
  *
  * @author Romain
  */
-public abstract class CarteTresor {
+public abstract class CarteTresor{
     private String nom;
     
     public CarteTresor(String nom){
-        this.nom = nom;
+        this.setNom(nom);
     }
 
     /**
