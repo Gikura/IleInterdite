@@ -103,6 +103,12 @@ public abstract class Aventurier {
         return message;  
     }
         
+    public ArrayList<Tuile> getTuilesAccessibles(Grille grille) {
+        return 
+    }
+    
+    
+    
     public void ajouterCarte(CarteTresor carte){
         cartes.add(carte);
     }

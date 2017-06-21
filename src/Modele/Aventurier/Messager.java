@@ -25,6 +25,7 @@ public class Messager extends Aventurier {
         if (this.getCartes().contains(carte)){
             this.getCartes().remove(carte);
             aventurier.ajouterCarte(carte);
+            actions = actions +1;
             message = new Message(TypeMessage.DONNER_CARTE); 
         }
         else{
