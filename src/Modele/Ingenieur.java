@@ -18,60 +18,29 @@ public class Ingenieur extends Aventurier {
     super(nom, couleur);
     }
     
-    
     @Override
-        public Message deplacer(Tuile cible) {
-            return super.deplacer(cible); //To change body of generated methods, choose Tools | Templates.
-        } 
-    
-    
-    @Override
-        public Message assecher(Tuile cible){
-            
-            int xAventurier = getTuile().getCoords().getX();
-            int yAventurier = getTuile().getCoords().getY();
-            int xCible1 = cible.getCoords().getX();
-            int yCible1 = cible.getCoords().getY();
-            int xCible2 = cible.getCoords().getX();
-            int yCible2 = cible.getCoords().getY();
-            Message message;
-            boolean valide = false;  
+    public Message assecher(Tuile cible){
+        int xAventurier = getTuile().getCoords().getX();
+        int yAventurier = getTuile().getCoords().getY();
+        int xCible = cible.getCoords().getX();
+        int yCible = cible.getCoords().getY();
+        Message message;
         
-        
-            if (cible.isSombree() == true ){
-                message = new Message(TypeMessage.ASSECHEMENT_SOMBREE);
-
-            }
-        
-            else {
-                if (cible.isInondee() == true){
-                
-                    if((xCible1 == xAventurier && (yCible1 <= yAventurier + 1 || yCible1 >= yAventurier -1)) || (yCible1 == yAventurier && (xCible1 <= xAventurier + 1 || xCible1 >= xAventurier -1))){
-                        cible.setInondee(false);
-                        message = new Message(TypeMessage.ASSECHEMENT_OK);
-                    }
-                    else{
-                        message = new Message(TypeMessage.ASSECHEMENT_TUILE_NON_ATTEIGNABLE);
-                    }
-                
-                    if((xCible2 == xAventurier && (yCible2 <= yAventurier + 1 || yCible2 >= yAventurier -1)) || (yCible2 == yAventurier && (xCible2 <= xAventurier + 1 || xCible1 >= xAventurier -1))){
-                        cible.setInondee(false);
-                        message = new Message(TypeMessage.ASSECHEMENT_OK);
-                    }
-                     else{
+        if (cible.isSombree() == true ){
+            message = new Message(TypeMessage.ASSECHEMENT_SOMBREE);
+        }else{
+            if (cible.isInondee() == true){
+                if((xCible == xAventurier && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (yCible == yAventurier && (xCible == xAventurier + 1 || xCible == xAventurier -1))){
+                    cible.assecher();
+                    actions = actions -0.5;
+                    message = new Message(TypeMessage.ASSECHEMENT_OK);
+                }else{
                     message = new Message(TypeMessage.ASSECHEMENT_TUILE_NON_ATTEIGNABLE);
-                    }
-
                 }
-                else{
-                    message = new Message(TypeMessage.ASSECHEE);
-
-                }
+            }else{
+                message = new Message(TypeMessage.ASSECHEE);
             }
-
+        }
         return message;        
-        
-   }
-
-   
+    } 
 }

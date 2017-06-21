@@ -33,6 +33,9 @@ public class Tuile {
         aventuriers.remove(aventurier);
     }
     
+    public void assecher() {
+        this.inondee = false;
+    }
     
     /**
      * @return the nom

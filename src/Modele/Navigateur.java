@@ -18,11 +18,6 @@ public class Navigateur extends Aventurier {
         super(nom, couleur);
     }
     
-    @Override
-    public Message deplacer(Tuile cible) {
-        return super.deplacer(cible);
-    }
-    
     public Message déplacerJoueur (Aventurier Aventurier, Tuile cible) {
         int xAventurier = Aventurier.getTuile().getCoords().getX();
         int yAventurier = Aventurier.getTuile().getCoords().getY();
@@ -37,7 +32,8 @@ public class Navigateur extends Aventurier {
                     tuile.enleverAventurier(Aventurier);
                     cible.ajouterAventurier(Aventurier);
                     this.setTuile(cible);
-                    
+                    actions = actions -1;
+                    message = new Message(TypeMessage.DEPLACEMENT_OK);
                 }else{
                     message = new Message(TypeMessage.DEPLACEMENT_TUILE_NON_ATTEIGNABLE);
                 }
@@ -48,8 +44,5 @@ public class Navigateur extends Aventurier {
             message = new Message(TypeMessage.DEPLACEMENT_SOMBREE);
         }
         return message;
-    }
-    
-    
-    
+    } 
 }

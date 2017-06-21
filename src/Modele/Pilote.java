@@ -32,6 +32,7 @@ public class Pilote extends Aventurier {
                 tuile.enleverAventurier(this);
                 cible.ajouterAventurier(this);
                 this.setTuile(cible);
+                actions = actions -1;
                 message = new Message(TypeMessage.DEPLACEMENT_OK);
             }else{
                 message = new Message(TypeMessage.DEPLACEMENT_MEME_TUILE);

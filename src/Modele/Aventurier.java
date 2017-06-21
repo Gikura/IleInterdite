@@ -15,7 +15,7 @@ import Observateur.*;
 public abstract class Aventurier {
     private String nom;
     private Couleur couleur;
-    private int actions;
+    protected int actions;
     private ArrayList<CarteTresor> cartes;
     protected Tuile tuile;
     
@@ -26,15 +26,7 @@ public abstract class Aventurier {
         this.cartes = new ArrayList<>();
         this.tuile = null;
     }
-    
-    public void ajouterCarte(CarteTresor carte){
-        cartes.add(carte);
-    }
-    
-    public void enleverCarte(CarteTresor carte){
-        cartes.remove(carte);
-    }
-    
+
     public Message deplacer(Tuile cible){
         int xAventurier = getTuile().getCoords().getX();
         int yAventurier = getTuile().getCoords().getY();
@@ -48,6 +40,7 @@ public abstract class Aventurier {
                 tuile.enleverAventurier(this);
                 cible.ajouterAventurier(this);
                 this.setTuile(cible);
+                actions = actions -1;
                 message = new Message(TypeMessage.DEPLACEMENT_OK);
             }else{
                 message = new Message(TypeMessage.DEPLACEMENT_TUILE_NON_ATTEIGNABLE);
@@ -67,22 +60,17 @@ public abstract class Aventurier {
         
         if (cible.isSombree() == true ){
             message = new Message(TypeMessage.ASSECHEMENT_SOMBREE);
-
-        }
-        
-        else {
+        }else{
             if (cible.isInondee() == true){
-                if((xCible == xAventurier && (yCible <= yAventurier + 1 || yCible >= yAventurier -1)) || (yCible == yAventurier && (xCible <= xAventurier + 1 || xCible >= xAventurier -1))){
-                    cible.setInondee(false);
+                if((xCible == xAventurier && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (yCible == yAventurier && (xCible == xAventurier + 1 || xCible == xAventurier -1))){
+                    cible.assecher();
+                    actions = actions -1;
                     message = new Message(TypeMessage.ASSECHEMENT_OK);
-                }
-                else{
+                }else{
                     message = new Message(TypeMessage.ASSECHEMENT_TUILE_NON_ATTEIGNABLE);
                 }
-            }
-            else{
+            }else{
                 message = new Message(TypeMessage.ASSECHEE);
-           
             }
         }
         
@@ -95,21 +83,30 @@ public abstract class Aventurier {
         int yAventurier1 = aventurier.getTuile().getCoords().getY();
         int xAventurier2 = aventurier.getTuile().getCoords().getX();
         int yAventurier2 = aventurier.getTuile().getCoords().getY();
-        Message message;
+        Message message = null;
         
         if (xAventurier1 == xAventurier2 && yAventurier1 == yAventurier2){
-            this.enleverCarte(carte);
-            aventurier.ajouterCarte(carte);
-            message = new Message(TypeMessage.DONNER_CARTE);
-        }
-        else{
+            if (this.getCartes().contains(carte)) {
+                this.enleverCarte(carte);
+                aventurier.ajouterCarte(carte);
+                actions = actions -1;
+                message = new Message(TypeMessage.DONNER_CARTE);
+            }else{
+                message = new Message(TypeMessage.CARTE_NON_POSSEDEE);
+            }
+        }else{
             message = new Message(TypeMessage.DONNER_CARTE_IMPOSSIBLE);
-        }
+        } 
+        return message;  
+    }
         
-        return message;
-        
+    public void ajouterCarte(CarteTresor carte){
+        cartes.add(carte);
     }
     
+    public void enleverCarte(CarteTresor carte){
+        cartes.remove(carte);
+    }
     
     /**
      * @return the nom

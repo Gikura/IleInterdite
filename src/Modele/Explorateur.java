@@ -33,6 +33,7 @@ public class Explorateur extends Aventurier {
                 tuile.enleverAventurier(this);
                 cible.ajouterAventurier(this);
                 this.setTuile(cible);
+                actions = actions -1;
                 message = new Message(TypeMessage.DEPLACEMENT_OK);
             }else{
                 message = new Message(TypeMessage.DEPLACEMENT_TUILE_NON_ATTEIGNABLE);
@@ -44,41 +45,33 @@ public class Explorateur extends Aventurier {
     }
     
     @Override
-        public Message assecher(Tuile cible){
-            int xAventurier = getTuile().getCoords().getX();
-            int yAventurier = getTuile().getCoords().getY();
-            int xCible = cible.getCoords().getX();
-            int yCible = cible.getCoords().getY();
-            Message message;
-            boolean valide = false; 
-        
-            if (cible.isSombree() == true ){
-             message = new Message(TypeMessage.ASSECHEMENT_SOMBREE);
+    public Message assecher(Tuile cible){
+        int xAventurier = getTuile().getCoords().getX();
+        int yAventurier = getTuile().getCoords().getY();
+        int xCible = cible.getCoords().getX();
+        int yCible = cible.getCoords().getY();
+        Message message;
+        boolean valide = false; 
 
-             }
-        
-             else {
-                if (cible.isInondee() == true){
-                    if(((xCible == xAventurier-1 || xCible == xAventurier+1) && (yCible == yAventurier-1 || yCible == yAventurier+1)) || (xCible == xAventurier && yCible == yAventurier)){
-                        cible.setInondee(false);
-                        message = new Message(TypeMessage.ASSECHEMENT_OK);
-                    }
-                    else{
-                        message = new Message(TypeMessage.ASSECHEMENT_TUILE_NON_ATTEIGNABLE);
-                    }
+        if (cible.isSombree() == true ){
+            message = new Message(TypeMessage.ASSECHEMENT_SOMBREE);
+        }else{
+            if (cible.isInondee() == true){
+                if(((xCible == xAventurier-1 || xCible == xAventurier+1) && (yCible == yAventurier-1 || yCible == yAventurier+1)) || (xCible == xAventurier && yCible == yAventurier)){
+                    cible.assecher();
+                    actions = actions -1;
+                    message = new Message(TypeMessage.ASSECHEMENT_OK);
+                }else{
+                    message = new Message(TypeMessage.ASSECHEMENT_TUILE_NON_ATTEIGNABLE);
                 }
-                else{
-                    message = new Message(TypeMessage.ASSECHEE);
-           
-                }
+            }else{
+                message = new Message(TypeMessage.ASSECHEE);
             }
-        
-            return message;
-                           
-            
+        }
+        return message;
     }
 
-    
+         
     
     
     

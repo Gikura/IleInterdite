@@ -29,15 +29,6 @@ public class Plongeur extends Aventurier {
         boolean valide = false;
         ArrayList<Tuile> tuilesPassees = new ArrayList<>();
         ArrayList<Tuile> tuilesPassables = new ArrayList<>();
-
-        
-        
-        
-        
-        
-        
-        
-        
             if(cible.isSombree()){
                 if((xCible == xAventurier && (yCible == yAventurier + 1 || yCible == yAventurier -1)) || (yCible == yAventurier && (xCible == xAventurier + 1 || xCible == xAventurier -1))){
                     tuile.enleverAventurier(this);
