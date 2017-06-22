@@ -121,18 +121,40 @@ public class Controleur {
             pileTresor.remove(1);
         }
         
-        if (joueur.getCartes().size() <= 4) {
-            joueur.ajouterCarte(cartesPiochées[0]);
-            joueur.ajouterCarte(cartesPiochées[1]);
-        }else{
-            joueur.ajouterCarte(cartesPiochées[0]);
-            joueur.ajouterCarte(cartesPiochées[1]);
+        if (joueur.getCartes().size() <= 4) { // Cas où le joueur n'a pas besoin de défausser une carte
+            if (cartesPiochées[0].getNom() == "Montée des eaux") {
+                INDICE_MONTEE_DES_EAUX ++;
+                pileDefausseTresor.add(cartesPiochées[0]);
+            }else{
+                joueur.ajouterCarte(cartesPiochées[0]);
+            }    
+            if (cartesPiochées[1].getNom() == "Montée des eaux") {
+                INDICE_MONTEE_DES_EAUX ++;
+                pileDefausseTresor.add(cartesPiochées[1]);
+            }else{
+                joueur.ajouterCarte(cartesPiochées[1]);
+            }    
+        }else{ // Cas où on gère la défausse après avoir pioché
+            if (cartesPiochées[0].getNom() == "Montée des eaux") {
+                INDICE_MONTEE_DES_EAUX ++;
+                pileDefausseTresor.add(cartesPiochées[0]);
+            }else{
+                joueur.ajouterCarte(cartesPiochées[0]);
+            }    
+            if (cartesPiochées[1].getNom() == "Montée des eaux") {
+                INDICE_MONTEE_DES_EAUX ++;
+                pileDefausseTresor.add(cartesPiochées[1]);
+            }else{
+                joueur.ajouterCarte(cartesPiochées[1]);
+            }
+                joueur.ajouterCarte(cartesPiochées[0]);
+                joueur.ajouterCarte(cartesPiochées[1]);
+                
             gererCartes();
         }
-        
-        
-        
     }
+    
+    public piocherCarteInondation
     
     public void viderDefausseTresor() {
         this.pileDefausseTresor.clear();
@@ -163,6 +185,7 @@ public class Controleur {
         // ICI SYSTEME DE DEFAUSSE DE CARTES QUAND PLUS DE 4 CARTES POSSEDEES
         
     }
+    
 //
 //        CarteMonteeEau montee1 = new CarteMonteeEau("Montée des eaux");
 //        CarteMonteeEau montee2 = new CarteMonteeEau("Montée des eaux");    
