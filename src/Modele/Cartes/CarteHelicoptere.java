@@ -11,9 +11,9 @@ import Modele.Tuile;
  *
  * @author lebouchn
  */
-public class CarteHelicoptere  extends CarteTresor{
+public class CarteHelicoptere  extends Carte{
     
-    private Tuile tuile;
+    private String nom;
     
     public CarteHelicoptere(String nom) {
         super(nom);

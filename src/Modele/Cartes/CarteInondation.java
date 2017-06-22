@@ -7,33 +7,15 @@ package Modele.Cartes;
 
 import Modele.Etat_Tuile;
 import Modele.Tuile;
+import Modele.Grille;
 
 /**
  *
  * @author lebouchn
  */
-public class CarteInondation {
+public class CarteInondation extends Carte{
     
-    private Tuile tuile;
-    
-    public CarteInondation(Tuile tuile){
-        this.tuile=tuile;
-    }
-    
-
-    public void inondation(){
-        if (this.getTuile().getEtatTuile() == Etat_Tuile.ASSECHEE){
-        this.getTuile().setEtatTuile(Etat_Tuile.INONDEE);
-        }
-        else {
-            this.getTuile().setEtatTuile(Etat_Tuile.COULEE);
-        }
-    }
-
-    /**
-     * @return the tuile
-     */
-    public Tuile getTuile() {
-        return tuile;
-    }
+    public CarteInondation(String nom){
+        super(nom);
+    } 
 }

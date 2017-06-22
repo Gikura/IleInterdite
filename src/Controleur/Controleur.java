@@ -6,6 +6,14 @@
 package Controleur;
 
 import Modele.Cartes.*;
+import Modele.Aventurier.*;
+import Modele.*;
+import Observateur.Observateur;
+import Utils.Utils.Pion;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 /**
  *
@@ -13,39 +21,156 @@ import Modele.Cartes.*;
  */
 public class Controleur {
     
+    private Grille grille;
     
-    CarteCalice calice1 = new CarteCalice("Calice de l'onde");
-    CarteCalice calice2 = new CarteCalice("Calice de l'onde");
-    CarteCalice calice3 = new CarteCalice("Calice de l'onde");
-    CarteCalice calice4 = new CarteCalice("Calice de l'onde");
-    CarteCalice calice5 = new CarteCalice("Calice de l'onde");
+    private ArrayList<CarteTuile> pileTuile;
+    private ArrayList<CarteTresor> pileTresor;    
+    private ArrayList<CarteTresor> pileDefausseTresor;
+    private ArrayList<CarteInondation> pileInondation;
+    private ArrayList<CarteInondation> pileDefausseInondation;
+    private HashMap<Pion, Aventurier> listeJoueurs;
+    private Pion[] ordreJoueurs;
+    private int ordreJeu;
+    private Observateur observateur;
+    private int INDICE_MONTEE_DES_EAUX = 0;
     
-    CartePierre pierre1 = new CartePierre("Pierre Sacrée");
-    CartePierre pierre2 = new CartePierre("Pierre Sacrée");
-    CartePierre pierre3 = new CartePierre("Pierre Sacrée");
-    CartePierre pierre4 = new CartePierre("Pierre Sacrée");
-    CartePierre pierre5 = new CartePierre("Pierre Sacrée");
+    public Controleur() {
+        pileTuile = new ArrayList<>();
+        pileInondation = new ArrayList<>();
+        pileTresor = new ArrayList<>();
+        creerCarte();
+        this.grille = new Grille();
+    }
     
-    CarteStatue statue1 = new CarteStatue("Statue du zéphyr");
-    CarteStatue statue2 = new CarteStatue("Statue du zéphyr");
-    CarteStatue statue3 = new CarteStatue("Statue du zéphyr");
-    CarteStatue statue4 = new CarteStatue("Statue du zéphyr");
-    CarteStatue statue5 = new CarteStatue("Statue du zéphyr");
+    public void creerCarte() {
+        
+        String nomCarte;    
+        // Cartes Trésor
+        for (int i = 0; i < 4; i++) {
+            pileTresor.add(new CarteTresor("Calice de l'onde"));
+            pileTresor.add(new CarteTresor("Pierre sacrée"));
+            pileTresor.add(new CarteTresor("Statue du zéphyr"));
+            pileTresor.add(new CarteTresor("Cristal ardent"));               
+            if (i < 2) {
+            pileTresor.add(new CarteTresor("Hélicoptère"));
+            }
+            if (i < 1) {
+            pileTresor.add(new CarteTresor("Montée des eaux"));
+            pileTresor.add(new CarteTresor("Sac de sable"));
+            }
+        }
+        
+        // Cartes Tuiles
+        String[] nomTuiles = {"La Porte de Bronze", "La Porte de Fer", "La Porte d'Or", "La Porte d'Argent", "Heliport", 
+        "La Porte de Cuivre", "Le Pont des Abîmes","Les Falaises de l'Oubli", "La Caverne Des Ombres", "Le Palais de Corail",
+        "Les Dunes de l'Illusion", "Le Jardin Des Hurlements", "La Foret Pourpre","Le Lagon Perdu", "Le Marais Brumeux", 
+        "Observatoire","Le Rocher Fantôme", "La Caverne du Brasier", "Le Temple du Soleil","Le Temple de la Lune", 
+        "Le Palais des Marées", "Le Val du Crépuscule","La Tour du Guet", "Le Jardin des Murmures"};
+        
+        Pion[] pions = {Pion.BLEU, Pion.GRIS, Pion.JAUNE, Pion.NOIR, Pion.ROUGE, Pion.VERT};
+        
+        for (int i = 0; i <= 24; i++) {
+            if (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) {
+                pileTuile.add(new CarteTuile(nomTuiles[i], pions[i]));
+            }else{
+                pileTuile.add(new CarteTuile(nomTuiles[i]));
+            }
+        }   
+        
+        //Cartes Inondation
+        for (int i = 0; i <= 24; i++) {
+            pileInondation.add(new CarteInondation(nomTuiles[i]));
+        }
+        
+        melangerTresor();
+        melangerInondation();
+        melangerTuile();
+        
+    }
     
-    CarteCristal cristal1 = new CarteCristal("Cristal Ardent");
-    CarteCristal cristal2 = new CarteCristal("Cristal Ardent");
-    CarteCristal cristal3 = new CarteCristal("Cristal Ardent");
-    CarteCristal cristal4 = new CarteCristal("Cristal Ardent");
-    CarteCristal cristal5 = new CarteCristal("Cristal Ardent");
+    public void melangerTresor() {
+        Collections.shuffle(this.pileTresor);
+    }
     
-    CarteMonteeEau montee1 = new CarteMonteeEau("Montée des eaux");
-    CarteMonteeEau montee2 = new CarteMonteeEau("Montée des eaux");    
-    CarteMonteeEau montee3 = new CarteMonteeEau("Montée des eaux");
+    public void melangerInondation() {
+        Collections.shuffle(this.pileInondation);    
+    }
     
-    CarteHelicoptere helico1 = new CarteHelicoptere("Hélicoptère");
-    CarteHelicoptere helico2 = new CarteHelicoptere("Hélicoptère");
-    CarteHelicoptere helico3 = new CarteHelicoptere("Hélicoptère");
+    public void melangerTuile() {
+        Collections.shuffle(this.pileTuile);
+    }
     
-    CarteSacSable sac1 = new CarteSacSable("Sac de sable");
-    CarteSacSable sac2 = new CarteSacSable("Sac de sable");
+    public void piocherCarteTresor(Aventurier joueur) {
+        CarteTresor cartesPiochées[] = new CarteTresor[2];
+        
+        if (this.pileTresor.isEmpty()) {
+            remplirPileTresor();
+            cartesPiochées[0] = pileTresor.get(0);
+            cartesPiochées[1] = pileTresor.get(1);
+            pileTresor.remove(0);
+            pileTresor.remove(1);
+        }else if (this.pileTresor.size() == 1) {
+            cartesPiochées[0] = pileTresor.get(0);
+            pileTresor.remove(0);
+            remplirPileTresor();
+            cartesPiochées[1] = pileTresor.get(0);
+        }else if (this.pileTresor.size() >= 2) {
+            cartesPiochées[0] = pileTresor.get(0);
+            cartesPiochées[1] = pileTresor.get(1);
+            pileTresor.remove(0);
+            pileTresor.remove(1);
+        }
+        
+        if (joueur.getCartes().size() <= 4) {
+            joueur.ajouterCarte(cartesPiochées[0]);
+            joueur.ajouterCarte(cartesPiochées[1]);
+        }else{
+            joueur.ajouterCarte(cartesPiochées[0]);
+            joueur.ajouterCarte(cartesPiochées[1]);
+            gererCartes();
+        }
+        
+        
+        
+    }
+    
+    public void viderDefausseTresor() {
+        this.pileDefausseTresor.clear();
+    }
+    
+    public void viderDefausseInondation() {
+        this.pileDefausseInondation.clear();
+    }
+    
+    public void remplirPileTresor() {
+        for (CarteTresor ct : pileDefausseTresor) {
+            pileTresor.add(ct);
+            pileDefausseTresor.remove(ct);
+        }
+        melangerTresor();
+    }
+    
+    public void remplirPileInondation() {
+        for (CarteInondation ci : pileDefausseInondation) {
+            pileInondation.add(ci);
+            pileDefausseInondation.remove(ci);
+        }
+        melangerInondation();
+    }
+    
+    public void gererCartes() {
+        
+        // ICI SYSTEME DE DEFAUSSE DE CARTES QUAND PLUS DE 4 CARTES POSSEDEES
+        
+    }
+//
+//        CarteMonteeEau montee1 = new CarteMonteeEau("Montée des eaux");
+//        CarteMonteeEau montee2 = new CarteMonteeEau("Montée des eaux");    
+//
+//        CarteHelicoptere helico1 = new CarteHelicoptere("Hélicoptère");
+//        CarteHelicoptere helico2 = new CarteHelicoptere("Hélicoptère");
+//        CarteHelicoptere helico3 = new CarteHelicoptere("Hélicoptère");
+//
+//        CarteSacSable sac1 = new CarteSacSable("Sac de sable");
+//        CarteSacSable sac2 = new CarteSacSable("Sac de sable");
 }

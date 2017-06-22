@@ -29,9 +29,9 @@ public class Grille {
         CarteTuile carte;
         Aventurier joueur;
         
-        for (int x = 1; x <= 6; x++) {
-            for (int y = 1; y <= 6; y++) {
-                if (!( (x == 1 || x == 6 && (y == 1 || y == 2 || y == 5 || y ==6)) || (x == 2 || x == 5 && (y == 1 || y == 6)) )) {
+        for (int x = 0; x < 6; x++) {
+            for (int y = 0; y < 6; y++) {
+                if (!( (x == 0 || x == 5 && (y == 0 || y == 1 || y == 4 || y ==5)) || (x == 1 || x == 4 && (y == 0 || y == 5)) )) {
                     carte = pileTuiles.get(i);
                     getMap()[x][y] = new Tuile (carte, new Coordonnees(x,y));  
                 
@@ -45,11 +45,11 @@ public class Grille {
         }  
     }
     
-    private ArrayList<Tuile> getTuilesGrille() {
+    public ArrayList<Tuile> getTuilesGrille() {
         ArrayList<Tuile> listeCases = new ArrayList<>();
-        for (int x = 1; x <= 6; x++) {
-            for (int y = 1; y <= 6; y++) {
-                if (!( (x == 1 || x == 6 && (y == 1 || y == 2 || y == 5 || y ==6)) || (x == 2 || x == 5 && (y == 1 || y == 6)) )) {
+        for (int x = 0; x < 5; x++) {
+            for (int y = 0; y <= 5; y++) {
+                if (!( (x == 0 || x == 5 && (y == 0 || y == 1 || y == 4 || y ==5)) || (x == 1 || x == 4 && (y == 0 || y == 5)) )) {
                     listeCases.add(getTuile(x,y));
                 }
             }
@@ -80,17 +80,22 @@ public class Grille {
         return listeAdj;
     }
 
-    private Tuile getTuile(int x, int y) {
+    public Tuile getTuile(int x, int y) {
         return ((x<6 && x>=0)&&(y<6 && y>=0)) ? getMap()[y][x] : null;
     }
     
-    
-    private Tuile[][] getMap() {
-        return this.plateauJeu;
+    public Tuile getTuile(String nom) {
+        Tuile tuile = null;
+        for (Tuile t : this.getTuilesGrille()) {
+            if (t.getCarteTuile().getNom().equals(nom)) {
+                tuile = t;
+            }
+        }
+        return tuile;
     }
     
-    
-    
-    
-    
+    public Tuile[][] getMap() {
+        return this.plateauJeu;
+    }
+ 
 }
