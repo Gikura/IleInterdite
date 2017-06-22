@@ -9,7 +9,9 @@ import Modele.Cartes.*;
 import Modele.Aventurier.*;
 import Modele.*;
 import Observateur.Observateur;
+import Utils.Utils;
 import Utils.Utils.Pion;
+import Utils.Utils.Tresor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,8 +23,7 @@ import java.util.HashMap;
  */
 public class Controleur {
     
-    private Grille grille;
-    
+    private Grille grille; 
     private ArrayList<CarteTuile> pileTuile;
     private ArrayList<CarteTresor> pileTresor;    
     private ArrayList<CarteTresor> pileDefausseTresor;
@@ -47,16 +48,16 @@ public class Controleur {
         String nomCarte;    
         // Cartes Trésor
         for (int i = 0; i < 4; i++) {
-            pileTresor.add(new CarteTresor("Calice de l'onde"));
-            pileTresor.add(new CarteTresor("Pierre sacrée"));
-            pileTresor.add(new CarteTresor("Statue du zéphyr"));
-            pileTresor.add(new CarteTresor("Cristal ardent"));               
+            getPileTresor().add(new CarteTresor(Tresor.Calice.toString()));
+            getPileTresor().add(new CarteTresor(Tresor.Pierre.toString()));
+            getPileTresor().add(new CarteTresor(Tresor.Statue.toString()));
+            getPileTresor().add(new CarteTresor(Tresor.Cristal.toString()));               
             if (i < 2) {
-            pileTresor.add(new CarteTresor("Hélicoptère"));
+                getPileTresor().add(new CarteTresor("Hélicoptère"));
             }
             if (i < 1) {
-            pileTresor.add(new CarteTresor("Montée des eaux"));
-            pileTresor.add(new CarteTresor("Sac de sable"));
+                getPileTresor().add(new CarteTresor("Montée des eaux"));
+                getPileTresor().add(new CarteTresor("Sac de sable"));
             }
         }
         
@@ -79,7 +80,7 @@ public class Controleur {
         
         //Cartes Inondation
         for (int i = 0; i <= 24; i++) {
-            pileInondation.add(new CarteInondation(nomTuiles[i]));
+            getPileInondation().add(new CarteInondation(nomTuiles[i]));
         }
         
         melangerTresor();
@@ -89,62 +90,62 @@ public class Controleur {
     }
     
     public void melangerTresor() {
-        Collections.shuffle(this.pileTresor);
+        Collections.shuffle(this.getPileTresor());
     }
     
     public void melangerInondation() {
-        Collections.shuffle(this.pileInondation);    
+        Collections.shuffle(this.getPileInondation());    
     }
     
     public void melangerTuile() {
-        Collections.shuffle(this.pileTuile);
+        Collections.shuffle(this.getPileTuile());
     }
     
     public void piocherCarteTresor(Aventurier joueur) {
         CarteTresor cartesPiochées[] = new CarteTresor[2];
         
-        if (this.pileTresor.isEmpty()) {
+        if (this.getPileTresor().isEmpty()) {
             remplirPileTresor();
-            cartesPiochées[0] = pileTresor.get(0);
-            cartesPiochées[1] = pileTresor.get(1);
-            pileTresor.remove(0);
-            pileTresor.remove(1);
-        }else if (this.pileTresor.size() == 1) {
-            cartesPiochées[0] = pileTresor.get(0);
-            pileTresor.remove(0);
+            cartesPiochées[0] = getPileTresor().get(0);
+            cartesPiochées[1] = getPileTresor().get(1);
+            getPileTresor().remove(0);
+            getPileTresor().remove(1);
+        }else if (this.getPileTresor().size() == 1) {
+            cartesPiochées[0] = getPileTresor().get(0);
+            getPileTresor().remove(0);
             remplirPileTresor();
-            cartesPiochées[1] = pileTresor.get(0);
-            pileTresor.remove(0);
-        }else if (this.pileTresor.size() >= 2) {
-            cartesPiochées[0] = pileTresor.get(0);
-            cartesPiochées[1] = pileTresor.get(1);
-            pileTresor.remove(0);
-            pileTresor.remove(1);
+            cartesPiochées[1] = getPileTresor().get(0);
+            getPileTresor().remove(0);
+        }else if (this.getPileTresor().size() >= 2) {
+            cartesPiochées[0] = getPileTresor().get(0);
+            cartesPiochées[1] = getPileTresor().get(1);
+            getPileTresor().remove(0);
+            getPileTresor().remove(1);
         }
         
         if (joueur.getCartes().size() <= 3) { // Cas où le joueur n'a pas besoin de défausser une carte
             if (cartesPiochées[0].getNom() == "Montée des eaux") {
-                INDICE_MONTEE_DES_EAUX ++;
-                pileDefausseTresor.add(cartesPiochées[0]);
+                setINDICE_MONTEE_DES_EAUX(getINDICE_MONTEE_DES_EAUX() + 1);
+                getPileDefausseTresor().add(cartesPiochées[0]);
             }else{
                 joueur.ajouterCarte(cartesPiochées[0]);
             }    
             if (cartesPiochées[1].getNom() == "Montée des eaux") {
-                INDICE_MONTEE_DES_EAUX ++;
-                pileDefausseTresor.add(cartesPiochées[1]);
+                setINDICE_MONTEE_DES_EAUX(getINDICE_MONTEE_DES_EAUX() + 1);
+                getPileDefausseTresor().add(cartesPiochées[1]);
             }else{
                 joueur.ajouterCarte(cartesPiochées[1]);
             }    
         }else{ // Cas où on gère la défausse après avoir pioché
             if (cartesPiochées[0].getNom() == "Montée des eaux") {
-                INDICE_MONTEE_DES_EAUX ++;
-                pileDefausseTresor.add(cartesPiochées[0]);
+                setINDICE_MONTEE_DES_EAUX(getINDICE_MONTEE_DES_EAUX() + 1);
+                getPileDefausseTresor().add(cartesPiochées[0]);
             }else{
                 joueur.ajouterCarte(cartesPiochées[0]);
             }    
             if (cartesPiochées[1].getNom() == "Montée des eaux") {
-                INDICE_MONTEE_DES_EAUX ++;
-                pileDefausseTresor.add(cartesPiochées[1]);
+                setINDICE_MONTEE_DES_EAUX(getINDICE_MONTEE_DES_EAUX() + 1);
+                getPileDefausseTresor().add(cartesPiochées[1]);
             }else{
                 joueur.ajouterCarte(cartesPiochées[1]);
             }
@@ -159,69 +160,58 @@ public class Controleur {
         
         CarteInondation cartesPiochées[] = new CarteInondation[nb];
         
-        if (this.pileInondation.isEmpty()) {
+        if (this.getPileInondation().isEmpty()) {
             remplirPileInondation();
             for (int i = 0; i < nb; i++) {
-                cartesPiochées[i] = pileInondation.get(i);
-                pileInondation.remove(i);
+                cartesPiochées[i] = getPileInondation().get(i);
+                getPileInondation().remove(i);
             }
-        }else if (this.pileInondation.size() == 1) {
-            cartesPiochées[0] = pileInondation.get(0);
-            pileInondation.remove(0);
+        }else if (this.getPileInondation().size() == 1) {
+            cartesPiochées[0] = getPileInondation().get(0);
+            getPileInondation().remove(0);
             remplirPileTresor();
             for (int i = 1; i < nb; i++) {
-            cartesPiochées[i] = pileInondation.get(i);
-            pileInondation.remove(i);
+            cartesPiochées[i] = getPileInondation().get(i);
+                getPileInondation().remove(i);
             }
-        }else if (this.pileInondation.size() >= nb) {
+        }else if (this.getPileInondation().size() >= nb) {
             for (int i = 0; i < nb; i++) {
-                cartesPiochées[i] = pileInondation.get(i);
-                pileInondation.remove(i);
+                cartesPiochées[i] = getPileInondation().get(i);
+                getPileInondation().remove(i);
             }
         }
         
-        Tuile tuile0 = grille.getTuile(cartesPiochées[0].getNom());
-        Tuile tuile1 = grille.getTuile(cartesPiochées[1].getNom());
-        
-        
-        if (tuile0.getEtatTuile() == Etat_Tuile.ASSECHEE) {
-            tuile0.setEtatTuile(Etat_Tuile.INONDEE);
-            pileDefausseInondation.add(cartesPiochées[0]);
-        }else if (tuile0.getEtatTuile() == Etat_Tuile.INONDEE) {
-            tuile0.setEtatTuile(Etat_Tuile.COULEE);
-            // on ne l'ajoute pas à la pile de défausse elle sera donc supprimée puisque la tuile est coulée
-        }
-        if (tuile1.getEtatTuile() == Etat_Tuile.ASSECHEE) {
-            tuile1.setEtatTuile(Etat_Tuile.INONDEE);
-            pileDefausseInondation.add(cartesPiochées[1]);
-        }else if (tuile1.getEtatTuile() == Etat_Tuile.INONDEE) {
-            tuile1.setEtatTuile(Etat_Tuile.COULEE);
-            // on ne l'ajoute pas à la pile de défausse elle sera donc supprimée puisque la tuile est coulée
-        }
-        
-        
+        for (int i = 0; i < nb; i++) {
+            if (getGrille().getTuile(cartesPiochées[i].getNom()).getEtatTuile() == Etat_Tuile.ASSECHEE) {
+                this.getGrille().getTuile(cartesPiochées[i].getNom()).setEtatTuile(Etat_Tuile.INONDEE);
+                getPileDefausseInondation().add(cartesPiochées[i]);
+            }else if (getGrille().getTuile(cartesPiochées[i].getNom()).getEtatTuile() == Etat_Tuile.INONDEE) {
+                this.getGrille().getTuile(cartesPiochées[i].getNom()).setEtatTuile(Etat_Tuile.COULEE);
+                // on ne l'ajoute pas à la pile de défausse elle sera donc supprimée puisque la tuile est coulée
+            }       
+        }  
     } 
     
     public void viderDefausseTresor() {
-        this.pileDefausseTresor.clear();
+        this.getPileDefausseTresor().clear();
     }
     
     public void viderDefausseInondation() {
-        this.pileDefausseInondation.clear();
+        this.getPileDefausseInondation().clear();
     }
     
     public void remplirPileTresor() {
-        for (CarteTresor ct : pileDefausseTresor) {
-            pileTresor.add(ct);
-            pileDefausseTresor.remove(ct);
+        for (CarteTresor ct : getPileDefausseTresor()) {
+            getPileTresor().add(ct);
+            getPileDefausseTresor().remove(ct);
         }
         melangerTresor();
     }
     
     public void remplirPileInondation() {
-        for (CarteInondation ci : pileDefausseInondation) {
-            pileInondation.add(ci);
-            pileDefausseInondation.remove(ci);
+        for (CarteInondation ci : getPileDefausseInondation()) {
+            getPileInondation().add(ci);
+            getPileDefausseInondation().remove(ci);
         }
         melangerInondation();
     }
@@ -230,6 +220,160 @@ public class Controleur {
         
         // ICI SYSTEME DE DEFAUSSE DE CARTES QUAND PLUS DE 4 CARTES POSSEDEES
         
+    }
+
+    /**
+     * @return the grille
+     */
+    public Grille getGrille() {
+        return grille;
+    }
+
+    /**
+     * @param grille the grille to set
+     */
+    public void setGrille(Grille grille) {
+        this.grille = grille;
+    }
+
+    /**
+     * @return the pileTuile
+     */
+    public ArrayList<CarteTuile> getPileTuile() {
+        return pileTuile;
+    }
+
+    /**
+     * @param pileTuile the pileTuile to set
+     */
+    public void setPileTuile(ArrayList<CarteTuile> pileTuile) {
+        this.pileTuile = pileTuile;
+    }
+
+    /**
+     * @return the pileTresor
+     */
+    public ArrayList<CarteTresor> getPileTresor() {
+        return pileTresor;
+    }
+
+    /**
+     * @param pileTresor the pileTresor to set
+     */
+    public void setPileTresor(ArrayList<CarteTresor> pileTresor) {
+        this.pileTresor = pileTresor;
+    }
+
+    /**
+     * @return the pileDefausseTresor
+     */
+    public ArrayList<CarteTresor> getPileDefausseTresor() {
+        return pileDefausseTresor;
+    }
+
+    /**
+     * @param pileDefausseTresor the pileDefausseTresor to set
+     */
+    public void setPileDefausseTresor(ArrayList<CarteTresor> pileDefausseTresor) {
+        this.pileDefausseTresor = pileDefausseTresor;
+    }
+
+    /**
+     * @return the pileInondation
+     */
+    public ArrayList<CarteInondation> getPileInondation() {
+        return pileInondation;
+    }
+
+    /**
+     * @param pileInondation the pileInondation to set
+     */
+    public void setPileInondation(ArrayList<CarteInondation> pileInondation) {
+        this.pileInondation = pileInondation;
+    }
+
+    /**
+     * @return the pileDefausseInondation
+     */
+    public ArrayList<CarteInondation> getPileDefausseInondation() {
+        return pileDefausseInondation;
+    }
+
+    /**
+     * @param pileDefausseInondation the pileDefausseInondation to set
+     */
+    public void setPileDefausseInondation(ArrayList<CarteInondation> pileDefausseInondation) {
+        this.pileDefausseInondation = pileDefausseInondation;
+    }
+
+    /**
+     * @return the listeJoueurs
+     */
+    public HashMap<Pion, Aventurier> getListeJoueurs() {
+        return listeJoueurs;
+    }
+
+    /**
+     * @param listeJoueurs the listeJoueurs to set
+     */
+    public void setListeJoueurs(HashMap<Pion, Aventurier> listeJoueurs) {
+        this.listeJoueurs = listeJoueurs;
+    }
+
+    /**
+     * @return the ordreJoueurs
+     */
+    public Pion[] getOrdreJoueurs() {
+        return ordreJoueurs;
+    }
+
+    /**
+     * @param ordreJoueurs the ordreJoueurs to set
+     */
+    public void setOrdreJoueurs(Pion[] ordreJoueurs) {
+        this.ordreJoueurs = ordreJoueurs;
+    }
+
+    /**
+     * @return the ordreJeu
+     */
+    public int getOrdreJeu() {
+        return ordreJeu;
+    }
+
+    /**
+     * @param ordreJeu the ordreJeu to set
+     */
+    public void setOrdreJeu(int ordreJeu) {
+        this.ordreJeu = ordreJeu;
+    }
+
+    /**
+     * @return the observateur
+     */
+    public Observateur getObservateur() {
+        return observateur;
+    }
+
+    /**
+     * @param observateur the observateur to set
+     */
+    public void setObservateur(Observateur observateur) {
+        this.observateur = observateur;
+    }
+
+    /**
+     * @return the INDICE_MONTEE_DES_EAUX
+     */
+    public int getINDICE_MONTEE_DES_EAUX() {
+        return INDICE_MONTEE_DES_EAUX;
+    }
+
+    /**
+     * @param INDICE_MONTEE_DES_EAUX the INDICE_MONTEE_DES_EAUX to set
+     */
+    public void setINDICE_MONTEE_DES_EAUX(int INDICE_MONTEE_DES_EAUX) {
+        this.INDICE_MONTEE_DES_EAUX = INDICE_MONTEE_DES_EAUX;
     }
     
 }

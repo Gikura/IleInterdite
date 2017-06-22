@@ -5,6 +5,7 @@
  */
 package Jeu;
 
+import Controleur.Controleur;
 import Vue.IHM;
 import Vue.JeuFenetre;
 import Vue.Launcher;
@@ -25,6 +26,15 @@ public class IleInterdite {
         // TODO code application logic here
         IHM ihm = new IHM();
         
+        //  T E S T    N E    P A S    T O U C H E R  //
+//        Controleur controleur = new Controleur();
+//        controleur.creerCarte();
+//        
+//        for (int i = 0; i < controleur.getPileTresor().size(); i++) {
+//        System.out.println(controleur.getPileTresor().get(i).getNom());
+//        }
+
+
     }
     
 }
