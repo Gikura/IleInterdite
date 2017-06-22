@@ -67,7 +67,7 @@ public class Controleur {
         "Observatoire","Le Rocher Fantôme", "La Caverne du Brasier", "Le Temple du Soleil","Le Temple de la Lune", 
         "Le Palais des Marées", "Le Val du Crépuscule","La Tour du Guet", "Le Jardin des Murmures"};
         
-        Pion[] pions = {Pion.BLEU, Pion.GRIS, Pion.JAUNE, Pion.NOIR, Pion.ROUGE, Pion.VERT};
+        Pion[] pions = {Pion.ROUGE, Pion.NOIR, Pion.JAUNE, Pion.GRIS, Pion.BLEU, Pion.VERT};
         
         for (int i = 0; i <= 24; i++) {
             if (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) {
@@ -155,26 +155,29 @@ public class Controleur {
         }
     }
     
-    public void piocherCarteInondation() {
-        CarteInondation cartesPiochées[] = new CarteInondation[2];
+    public void piocherCarteInondation(int nb) {
+        
+        CarteInondation cartesPiochées[] = new CarteInondation[nb];
         
         if (this.pileInondation.isEmpty()) {
             remplirPileInondation();
-            cartesPiochées[0] = pileInondation.get(0);
-            cartesPiochées[1] = pileInondation.get(1);
-            pileInondation.remove(0);
-            pileInondation.remove(1);
+            for (int i = 0; i < nb; i++) {
+                cartesPiochées[i] = pileInondation.get(i);
+                pileInondation.remove(i);
+            }
         }else if (this.pileInondation.size() == 1) {
             cartesPiochées[0] = pileInondation.get(0);
             pileInondation.remove(0);
             remplirPileTresor();
-            cartesPiochées[1] = pileInondation.get(0);
-            pileInondation.remove(0);
-        }else if (this.pileInondation.size() >= 2) {
-            cartesPiochées[0] = pileInondation.get(0);
-            cartesPiochées[1] = pileInondation.get(1);
-            pileInondation.remove(0);
-            pileInondation.remove(1);
+            for (int i = 1; i < nb; i++) {
+            cartesPiochées[i] = pileInondation.get(i);
+            pileInondation.remove(i);
+            }
+        }else if (this.pileInondation.size() >= nb) {
+            for (int i = 0; i < nb; i++) {
+                cartesPiochées[i] = pileInondation.get(i);
+                pileInondation.remove(i);
+            }
         }
         
         Tuile tuile0 = grille.getTuile(cartesPiochées[0].getNom());
@@ -229,14 +232,4 @@ public class Controleur {
         
     }
     
-//
-//        CarteMonteeEau montee1 = new CarteMonteeEau("Montée des eaux");
-//        CarteMonteeEau montee2 = new CarteMonteeEau("Montée des eaux");    
-//
-//        CarteHelicoptere helico1 = new CarteHelicoptere("Hélicoptère");
-//        CarteHelicoptere helico2 = new CarteHelicoptere("Hélicoptère");
-//        CarteHelicoptere helico3 = new CarteHelicoptere("Hélicoptère");
-//
-//        CarteSacSable sac1 = new CarteSacSable("Sac de sable");
-//        CarteSacSable sac2 = new CarteSacSable("Sac de sable");
 }
