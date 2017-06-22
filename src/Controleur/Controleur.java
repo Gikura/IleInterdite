@@ -36,16 +36,18 @@ public class Controleur {
     private int INDICE_MONTEE_DES_EAUX = 0;
     
     public Controleur() {
+        grille = new Grille();
         pileTuile = new ArrayList<>();
         pileInondation = new ArrayList<>();
+        pileDefausseInondation = new ArrayList<>();
         pileTresor = new ArrayList<>();
+        pileDefausseTresor = new ArrayList<>();
+        listeJoueurs = new HashMap<>();
         creerCarte();
-        this.grille = new Grille();
     }
     
     public void creerCarte() {
-        
-        String nomCarte;    
+          
         // Cartes Trésor
         for (int i = 0; i < 4; i++) {
             getPileTresor().add(new CarteTresor("Calice de l'onde"));
@@ -70,11 +72,10 @@ public class Controleur {
         
         Pion[] pions = {Pion.ROUGE, Pion.NOIR, Pion.JAUNE, Pion.GRIS, Pion.BLEU, Pion.VERT};
         
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < nomTuiles.length; i++) {
             if (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) {
                 pileTuile.add(new CarteTuile(nomTuiles[i], pions[i]));
-            }
-            if (i != 0 || i != 1 || i != 2 || i != 3 || i != 4 || i != 5) {
+            }else{
                 pileTuile.add(new CarteTuile(nomTuiles[i]));
             }
         }   

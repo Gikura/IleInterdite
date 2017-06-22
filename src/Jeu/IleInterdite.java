@@ -24,14 +24,20 @@ public class IleInterdite {
      */
     public static void main(String[] args) throws IOException, InterruptedException {
         // TODO code application logic here
-        IHM ihm = new IHM();
+//        IHM ihm = new IHM();
         
         //  T E S T    N E    P A S    T O U C H E R  //
-//        Controleur controleur = new Controleur();
-//        controleur.creerCarte();
-//        
+        Controleur controleur = new Controleur();
+        controleur.creerCarte();
+        
+        System.out.println("Taile pileTuile : " + controleur.getPileTuile().size());
+        System.out.println("Taile pileInondation : " + controleur.getPileInondation().size());
+        System.out.println("Taile pileTresor : " + controleur.getPileTresor().size());
+        
 //        for (int i = 0; i < controleur.getPileTresor().size(); i++) {
-//        System.out.println(controleur.getPileTresor().get(i).getNom());
+//            System.out.println("// CARTE NUMERO " + i + " //");
+//            System.out.println(controleur.getPileTresor().get(i).getNom());
+//        
 //        }
 
 
