@@ -15,12 +15,12 @@ import java.util.Collections;
  */
 public class Utils {
     public static enum Pion {
-        ROUGE("Rouge", new Color(255, 0, 0)),
-        VERT("Vert", new Color(0, 195, 0)),
-        BLEU("Bleu", new Color(55,194,198)),
-        NOIR("Noir", new Color(48, 48, 48)),
-        GRIS("Gris", new Color(158, 158, 158)),
-        JAUNE("Jaune", new Color(255, 255, 0));
+        ROUGE("Rouge", Color.RED),
+        VERT("Vert", Color.GREEN),
+        BLEU("Bleu", Color.BLUE ),
+        NOIR("Noir", Color.BLACK),
+        GRIS("Gris", Color.GRAY),
+        JAUNE("Jaune", Color.YELLOW);
 
         private final String libelle ;
         private final Color couleur ;

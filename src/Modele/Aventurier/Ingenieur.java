@@ -10,6 +10,8 @@ import Modele.Etat_Tuile;
 import Modele.Tuile;
 import Observateur.Message;
 import Observateur.TypeMessage;
+import Utils.Utils;
+import Utils.Utils.Pion;
 
 /**
  *
@@ -18,7 +20,8 @@ import Observateur.TypeMessage;
 public class Ingenieur extends Aventurier {
     
     public Ingenieur(String nom, Couleur couleur) {
-    super(nom, couleur);
+    super(nom);
+    this.pionAventurier = Pion.ROUGE;
     }
     
     @Override

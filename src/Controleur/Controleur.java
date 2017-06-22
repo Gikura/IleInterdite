@@ -9,9 +9,8 @@ import Modele.Cartes.*;
 import Modele.Aventurier.*;
 import Modele.*;
 import Observateur.Observateur;
-import Utils.Utils;
-import Utils.Utils.Pion;
-import Utils.Utils.Tresor;
+import Utils.*;
+import Utils.Utils.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +30,7 @@ public class Controleur {
     private ArrayList<CarteInondation> pileDefausseInondation;
     private HashMap<Pion, Aventurier> listeJoueurs;
     private Pion[] ordreJoueurs;
-    private int ordreJeu;
+    private int numJoueurCourant;
     private Observateur observateur;
     private int INDICE_MONTEE_DES_EAUX = 0;
     
@@ -87,9 +86,9 @@ public class Controleur {
             getPileInondation().add(new CarteInondation(nomTuiles[i]));
         }
         
-//        melangerTresor();
-//        melangerInondation();
-//        melangerTuile();
+        melangerTresor();
+        melangerInondation();
+        melangerTuile();
         
     }
     
@@ -234,6 +233,26 @@ public class Controleur {
         
     }
 
+    public void ajouterJoueur (ArrayList<Aventurier> listeJ) {
+        int nbJoueurs = listeJ.size();
+        
+        this.ordreJoueurs = new Pion[nbJoueurs];
+        for (int i = 0; i < nbJoueurs; i++) {
+            this.ordreJoueurs[i] = listeJ.get(i).getPionAventurier();
+        }
+        
+        this.numJoueurCourant = -1;
+        
+        HashMap<Pion, Aventurier> joueursPartie = new HashMap<>();
+        for (Aventurier a : listeJ) {
+            joueursPartie.put(a.getPionAventurier(), a);
+        }
+        
+        this.setListeJoueurs(joueursPartie);
+        
+        getGrille().installerGrille(pileTuile, listeJoueurs);
+    }
+    
     /**
      * @return the grille
      */
@@ -347,20 +366,6 @@ public class Controleur {
     }
 
     /**
-     * @return the ordreJeu
-     */
-    public int getOrdreJeu() {
-        return ordreJeu;
-    }
-
-    /**
-     * @param ordreJeu the ordreJeu to set
-     */
-    public void setOrdreJeu(int ordreJeu) {
-        this.ordreJeu = ordreJeu;
-    }
-
-    /**
      * @return the observateur
      */
     public Observateur getObservateur() {
@@ -386,6 +391,20 @@ public class Controleur {
      */
     public void setINDICE_MONTEE_DES_EAUX(int INDICE_MONTEE_DES_EAUX) {
         this.INDICE_MONTEE_DES_EAUX = INDICE_MONTEE_DES_EAUX;
+    }
+
+    /**
+     * @return the numJoueurCourant
+     */
+    public int getNumJoueurCourant() {
+        return numJoueurCourant;
+    }
+
+    /**
+     * @param numJoueurCourant the numJoueurCourant to set
+     */
+    public void setNumJoueurCourant(int numJoueurCourant) {
+        this.numJoueurCourant = numJoueurCourant;
     }
     
 }

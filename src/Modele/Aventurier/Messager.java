@@ -8,6 +8,8 @@ package Modele.Aventurier;
 import Modele.Cartes.CarteTresor;
 import Modele.Couleur;
 import Observateur.*;
+import Utils.Utils;
+import Utils.Utils.Pion;
 
 /**
  *
@@ -16,7 +18,8 @@ import Observateur.*;
 public class Messager extends Aventurier {
     
     public Messager(String nom, Couleur couleur) {
-        super(nom, couleur);
+        super(nom);
+        this.pionAventurier = Pion.GRIS;
     }
     
     @Override

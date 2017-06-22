@@ -9,6 +9,7 @@ import Modele.Cartes.CarteTresor;
 import Modele.*;
 import java.util.ArrayList;
 import Observateur.*;
+import Utils.Utils.Pion;
 
 /**
  *
@@ -16,14 +17,13 @@ import Observateur.*;
  */
 public abstract class Aventurier {
     private String nom;
-    private Couleur couleur;
     protected int actions;
     private ArrayList<CarteTresor> cartes;
     protected Tuile tuile;
+    protected Pion pionAventurier;
     
-    public Aventurier(String nom, Couleur couleur){
+    public Aventurier(String nom){
         this.nom = nom;
-        this.couleur = couleur;
         this.actions = 3;
         this.cartes = new ArrayList<>();
         this.tuile = null;
@@ -129,20 +129,6 @@ public abstract class Aventurier {
     }
 
     /**
-     * @return the couleur
-     */
-    public Couleur getCouleur() {
-        return couleur;
-    }
-
-    /**
-     * @param couleur the couleur to set
-     */
-    public void setCouleur(Couleur couleur) {
-        this.couleur = couleur;
-    }
-
-    /**
      * @return the actions
      */
     public int getActions() {
@@ -182,6 +168,20 @@ public abstract class Aventurier {
      */
     public void setTuile(Tuile tuile) {
         this.tuile = tuile;
+    }
+
+    /**
+     * @return the pionAventurier
+     */
+    public Pion getPionAventurier() {
+        return pionAventurier;
+    }
+
+    /**
+     * @param pionAventurier the pionAventurier to set
+     */
+    public void setPionAventurier(Pion pionAventurier) {
+        this.pionAventurier = pionAventurier;
     }
     
     

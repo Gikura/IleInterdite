@@ -10,6 +10,8 @@ import Modele.Etat_Tuile;
 import Modele.Tuile;
 import Observateur.Message;
 import Observateur.TypeMessage;
+import Utils.Utils;
+import Utils.Utils.Pion;
 import java.util.ArrayList;
 
 /**
@@ -19,9 +21,12 @@ import java.util.ArrayList;
 public class Plongeur extends Aventurier {
     
     public Plongeur(String nom, Couleur couleur) {
-        super(nom, couleur);
+        super(nom);
+        this.pionAventurier = Pion.NOIR;
     }
     
+    
+    // METHODE NON FAITE POUR PLONGEUR
     @Override
     public Message deplacer(Tuile cible){
         int xAventurier = getTuile().getCoords().getX();
