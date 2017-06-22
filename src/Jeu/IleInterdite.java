@@ -26,7 +26,7 @@ public class IleInterdite {
         // TODO code application logic here
 //        IHM ihm = new IHM();
         
-        //  T E S T    N E    P A S    T O U C H E R  //
+        //   T E S T   L I S T E   C A R T E S   T R E S O R S   //
         Controleur controleur = new Controleur();
         controleur.creerCarte();
         
@@ -34,11 +34,10 @@ public class IleInterdite {
         System.out.println("Taile pileInondation : " + controleur.getPileInondation().size());
         System.out.println("Taile pileTresor : " + controleur.getPileTresor().size());
         
-//        for (int i = 0; i < controleur.getPileTresor().size(); i++) {
-//            System.out.println("// CARTE NUMERO " + i + " //");
-//            System.out.println(controleur.getPileTresor().get(i).getNom());
-//        
-//        }
+        for (int i = 0; i < controleur.getPileTresor().size(); i++) {
+            System.out.println("// CARTE NUMERO " + (i+1) + " //");
+            System.out.println(controleur.getPileTresor().get(i).getNom());
+        }
 
 
     }

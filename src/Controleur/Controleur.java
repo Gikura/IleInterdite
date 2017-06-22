@@ -47,22 +47,24 @@ public class Controleur {
     }
     
     public void creerCarte() {
-          
+        
+        toutVider();
+        
         // Cartes Trésor
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             getPileTresor().add(new CarteTresor("Calice de l'onde"));
             getPileTresor().add(new CarteTresor("Pierre sacrée"));
             getPileTresor().add(new CarteTresor("Statue du zéphyr"));
-            getPileTresor().add(new CarteTresor("Cristal ardent"));               
-        }
-        for (int i = 0; i < 2; i++) {
+            getPileTresor().add(new CarteTresor("Cristal ardent"));                   
+            if (i < 3) {
             getPileTresor().add(new CarteTresor("Hélicoptère"));
-        }
-        for (int i = 0; i < 1; i++) {
-            getPileTresor().add(new CarteTresor("Montée des eaux"));
             getPileTresor().add(new CarteTresor("Sac de sable"));
+            }
+            if (i < 2) {
+            getPileTresor().add(new CarteTresor("Montée des eaux"));
+            }
         }
-        
+
         // Cartes Tuiles
         String[] nomTuiles = {"La Porte de Bronze", "La Porte de Fer", "La Porte d'Or", "La Porte d'Argent", "Heliport", 
         "La Porte de Cuivre", "Le Pont des Abîmes","Les Falaises de l'Oubli", "La Caverne Des Ombres", "Le Palais de Corail",
@@ -85,9 +87,9 @@ public class Controleur {
             getPileInondation().add(new CarteInondation(nomTuiles[i]));
         }
         
-        melangerTresor();
-        melangerInondation();
-        melangerTuile();
+//        melangerTresor();
+//        melangerInondation();
+//        melangerTuile();
         
     }
     
@@ -194,6 +196,14 @@ public class Controleur {
         }  
     } 
     
+    public void toutVider() {
+        pileTuile.clear();
+        pileTresor.clear();
+        viderDefausseTresor();
+        pileInondation.clear();
+        viderDefausseInondation();
+    }
+     
     public void viderDefausseTresor() {
         this.getPileDefausseTresor().clear();
     }
