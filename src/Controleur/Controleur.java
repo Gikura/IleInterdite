@@ -114,6 +114,7 @@ public class Controleur {
             pileTresor.remove(0);
             remplirPileTresor();
             cartesPiochées[1] = pileTresor.get(0);
+            pileTresor.remove(0);
         }else if (this.pileTresor.size() >= 2) {
             cartesPiochées[0] = pileTresor.get(0);
             cartesPiochées[1] = pileTresor.get(1);
@@ -121,7 +122,7 @@ public class Controleur {
             pileTresor.remove(1);
         }
         
-        if (joueur.getCartes().size() <= 4) { // Cas où le joueur n'a pas besoin de défausser une carte
+        if (joueur.getCartes().size() <= 3) { // Cas où le joueur n'a pas besoin de défausser une carte
             if (cartesPiochées[0].getNom() == "Montée des eaux") {
                 INDICE_MONTEE_DES_EAUX ++;
                 pileDefausseTresor.add(cartesPiochées[0]);
@@ -154,7 +155,49 @@ public class Controleur {
         }
     }
     
-    public piocherCarteInondation
+    public void piocherCarteInondation() {
+        CarteInondation cartesPiochées[] = new CarteInondation[2];
+        
+        if (this.pileInondation.isEmpty()) {
+            remplirPileInondation();
+            cartesPiochées[0] = pileInondation.get(0);
+            cartesPiochées[1] = pileInondation.get(1);
+            pileInondation.remove(0);
+            pileInondation.remove(1);
+        }else if (this.pileInondation.size() == 1) {
+            cartesPiochées[0] = pileInondation.get(0);
+            pileInondation.remove(0);
+            remplirPileTresor();
+            cartesPiochées[1] = pileInondation.get(0);
+            pileInondation.remove(0);
+        }else if (this.pileInondation.size() >= 2) {
+            cartesPiochées[0] = pileInondation.get(0);
+            cartesPiochées[1] = pileInondation.get(1);
+            pileInondation.remove(0);
+            pileInondation.remove(1);
+        }
+        
+        Tuile tuile0 = grille.getTuile(cartesPiochées[0].getNom());
+        Tuile tuile1 = grille.getTuile(cartesPiochées[1].getNom());
+        
+        
+        if (tuile0.getEtatTuile() == Etat_Tuile.ASSECHEE) {
+            tuile0.setEtatTuile(Etat_Tuile.INONDEE);
+            pileDefausseInondation.add(cartesPiochées[0]);
+        }else if (tuile0.getEtatTuile() == Etat_Tuile.INONDEE) {
+            tuile0.setEtatTuile(Etat_Tuile.COULEE);
+            // on ne l'ajoute pas à la pile de défausse elle sera donc supprimée puisque la tuile est coulée
+        }
+        if (tuile1.getEtatTuile() == Etat_Tuile.ASSECHEE) {
+            tuile1.setEtatTuile(Etat_Tuile.INONDEE);
+            pileDefausseInondation.add(cartesPiochées[1]);
+        }else if (tuile1.getEtatTuile() == Etat_Tuile.INONDEE) {
+            tuile1.setEtatTuile(Etat_Tuile.COULEE);
+            // on ne l'ajoute pas à la pile de défausse elle sera donc supprimée puisque la tuile est coulée
+        }
+        
+        
+    } 
     
     public void viderDefausseTresor() {
         this.pileDefausseTresor.clear();
