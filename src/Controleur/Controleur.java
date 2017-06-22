@@ -48,17 +48,17 @@ public class Controleur {
         String nomCarte;    
         // Cartes Trésor
         for (int i = 0; i < 4; i++) {
-            getPileTresor().add(new CarteTresor(Tresor.Calice.toString()));
-            getPileTresor().add(new CarteTresor(Tresor.Pierre.toString()));
-            getPileTresor().add(new CarteTresor(Tresor.Statue.toString()));
-            getPileTresor().add(new CarteTresor(Tresor.Cristal.toString()));               
-            if (i < 2) {
-                getPileTresor().add(new CarteTresor("Hélicoptère"));
-            }
-            if (i < 1) {
-                getPileTresor().add(new CarteTresor("Montée des eaux"));
-                getPileTresor().add(new CarteTresor("Sac de sable"));
-            }
+            getPileTresor().add(new CarteTresor("Calice de l'onde"));
+            getPileTresor().add(new CarteTresor("Pierre sacrée"));
+            getPileTresor().add(new CarteTresor("Statue du zéphyr"));
+            getPileTresor().add(new CarteTresor("Cristal ardent"));               
+        }
+        for (int i = 0; i < 2; i++) {
+            getPileTresor().add(new CarteTresor("Hélicoptère"));
+        }
+        for (int i = 0; i < 1; i++) {
+            getPileTresor().add(new CarteTresor("Montée des eaux"));
+            getPileTresor().add(new CarteTresor("Sac de sable"));
         }
         
         // Cartes Tuiles
@@ -70,16 +70,17 @@ public class Controleur {
         
         Pion[] pions = {Pion.ROUGE, Pion.NOIR, Pion.JAUNE, Pion.GRIS, Pion.BLEU, Pion.VERT};
         
-        for (int i = 0; i <= 24; i++) {
+        for (int i = 0; i < 24; i++) {
             if (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) {
                 pileTuile.add(new CarteTuile(nomTuiles[i], pions[i]));
-            }else{
+            }
+            if (i != 0 || i != 1 || i != 2 || i != 3 || i != 4 || i != 5) {
                 pileTuile.add(new CarteTuile(nomTuiles[i]));
             }
         }   
         
         //Cartes Inondation
-        for (int i = 0; i <= 24; i++) {
+        for (int i = 0; i < 24; i++) {
             getPileInondation().add(new CarteInondation(nomTuiles[i]));
         }
         
