@@ -60,7 +60,7 @@ public class Utils {
         Calice("Calice de l'onde"),
         Pierre("Pierre Sacree"),
         Cristal("Cristal Ardent"),
-        Statue("Statue ");
+        Statue("Statue du  zéphyr");
             
            private String libelle;
            
