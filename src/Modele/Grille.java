@@ -61,23 +61,38 @@ public class Grille {
 
         ArrayList<Tuile> listeAdj = new ArrayList<>();
 
-        if (getTuile((tuile.getCoords().getX()+1),(tuile.getCoords().getY())) != null) {
-            Tuile tuileD = getTuile((tuile.getCoords().getX()+1),(tuile.getCoords().getY()));
-            listeAdj.add(tuile);
+        if (getTuile((tuile.getCoords().getX()+1),(tuile.getCoords().getY())) != null) {       
+            listeAdj.add(getTuile((tuile.getCoords().getX()+1),(tuile.getCoords().getY())));
         }
         if (getTuile((tuile.getCoords().getX()-1),(tuile.getCoords().getY())) != null) {
-            Tuile tuileG = getTuile((tuile.getCoords().getX()-1),(tuile.getCoords().getY()));
-            listeAdj.add(tuile);
+            listeAdj.add(getTuile((tuile.getCoords().getX()-1),(tuile.getCoords().getY())));
         }    
         if (getTuile((tuile.getCoords().getX()),(tuile.getCoords().getY()+1)) != null) {
-            Tuile tuileH = getTuile((tuile.getCoords().getX()),(tuile.getCoords().getY()+1));
-            listeAdj.add(tuile);
+            listeAdj.add(getTuile((tuile.getCoords().getX()),(tuile.getCoords().getY()+1)));
         }
         if (getTuile((tuile.getCoords().getX()),(tuile.getCoords().getY()-1)) != null) {
-            Tuile tuileB = getTuile((tuile.getCoords().getX()),(tuile.getCoords().getY()-1));
-            listeAdj.add(tuile);
+            listeAdj.add(getTuile((tuile.getCoords().getX()),(tuile.getCoords().getY()-1)));
         }
         return listeAdj;
+    }
+    
+    public ArrayList<Tuile> getTuilesDiagonales(Tuile tuile) {
+        
+        ArrayList<Tuile> listeDiagonale = new ArrayList<>();
+        
+        if (getTuile(tuile.getCoords().getX() + 1, tuile.getCoords().getY() + 1) != null) {
+            listeDiagonale.add(getTuile(tuile.getCoords().getX() + 1, tuile.getCoords().getY() + 1));
+        }
+        if (getTuile(tuile.getCoords().getX() + 1, tuile.getCoords().getY() - 1) != null) {
+            listeDiagonale.add(getTuile(tuile.getCoords().getX() + 1, tuile.getCoords().getY() - 1));
+        }
+        if (getTuile(tuile.getCoords().getX() - 1, tuile.getCoords().getY() - 1) != null) {
+            listeDiagonale.add(getTuile(tuile.getCoords().getX() - 1, tuile.getCoords().getY() - 1));
+        }
+        if (getTuile(tuile.getCoords().getX() - 1, tuile.getCoords().getY() + 1) != null) {
+            listeDiagonale.add(getTuile(tuile.getCoords().getX() - 1, tuile.getCoords().getY() + 1));
+        }
+        return listeDiagonale;
     }
 
     public Tuile getTuile(int x, int y) {
